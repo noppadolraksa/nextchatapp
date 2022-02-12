@@ -1,82 +1,54 @@
 import Head from 'next/head'
+import ChatName from '../components/ChatName'
+import MessageHeader from '../components/Message/MessageHeader'
+import MessageInput from '../components/Message/MessageInput'
+import MessageText from '../components/Message/MessageText'
+import SwitchDark from '../components/SwitchDark'
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className=" flex h-screen w-screen  bg-gradient-to-b from-gray-200 to-gray-300 dark:from-slate-800 dark:to-slate-900">
       <Head>
-        <title>Create Next App</title>
+        <title>Nextjs Chatbot</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
+      <main className="m-auto  flex h-5/6 w-5/6 justify-between rounded-3xl bg-gray-200 shadow-sm shadow-indigo-500 dark:bg-gray-700">
+        <section className="flex w-1/4  flex-col ">
+          <div className=" flex h-12 w-full items-center justify-between pt-4 ">
+            <div className="my-auto flex px-3 text-xl font-bold text-gray-600 dark:text-white">
+              My Chats
+            </div>
+            <p className="my-auto mr-2 flex items-center justify-center rounded-xl bg-indigo-500 py-px px-3 text-xl text-gray-200 dark:bg-indigo-500">
+              +
             </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+          </div>
+          <div className="mt-4 h-full  w-full overflow-auto">
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+            <ChatName name="dew" />
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+            <ChatName name="dew" />
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+            <ChatName name="dew" />
+            <ChatName name="bright" />
+            <ChatName name="muk" />
+          </div>
+        </section>
+        <section className=" relative box-border flex w-2/4 flex-col justify-between border-x-2 border-gray-300 dark:border-gray-500">
+          <MessageHeader />
+          <MessageText />
+          <MessageInput />
+        </section>
+        <section className="w-1/4 "></section>
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="ml-2 h-4" />
-        </a>
-      </footer>
+      <SwitchDark />
     </div>
   )
 }
