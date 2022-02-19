@@ -3,7 +3,7 @@ import React from 'react'
 const MessageHeader = () => {
   return (
     <div className="my-4 flex h-10 flex-col items-center">
-      <h4 className="mb-px text-xl font-bold text-gray-600 dark:text-white">
+      <h4 className="mb-px text-2xl font-bold text-gray-600 dark:text-white">
         bright
       </h4>
       <p className="text-xs text-gray-700 dark:text-gray-400">

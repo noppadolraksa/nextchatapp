@@ -1,12 +1,17 @@
+import ProfilePicture from '../../../utils/ProfilePicture'
+
 type ChatNameValue = {
   name: string
+  color: string
+  photoURL: string
 }
 
-const ChatName = ({ name }: ChatNameValue) => {
+const ChatName = ({ name, color, photoURL }: ChatNameValue) => {
   return (
-    <div className="mx-2 my-0 flex flex-col justify-center rounded-xl p-2 hover:bg-indigo-300 hover:dark:bg-indigo-500 ">
-      <div className="mr-2 mb-2 mt-0 flex justify-between ">
-        <p className=" m-0 w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-lg text-gray-900 dark:text-gray-200">
+    <div className="mx-2 my-0 flex cursor-pointer flex-col justify-center rounded-xl p-2  visited:bg-indigo-300 active:dark:bg-indigo-500 ">
+      <div className="mr-2 mb-2 mt-0 flex items-center justify-start">
+        <p className=" m-0 flex  items-center  overflow-x-hidden truncate whitespace-nowrap font-medium text-gray-900 dark:text-gray-200">
+          <ProfilePicture photoURL={photoURL} name={name} color={color} />
           {name}
         </p>
         <div className=" my-auto h-px w-px rounded-full bg-indigo-500 p-1 dark:bg-gray-200" />
