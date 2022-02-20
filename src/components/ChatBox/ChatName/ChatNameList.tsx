@@ -11,8 +11,11 @@ import ChatName from './ChatName'
 
 const ChatNameList = () => {
   const [friends, setFriends] = useState<AuthContextInterface[] | null>(null)
+  const [select, setSelect] = useState<string>('')
+  // const [select, setSelect] = useState<boolean>(false)
+
   const user = useAuth()
-  console.log(friends)
+
   useEffect(() => {
     const fetchFriends = async () => {
       if (user) {
@@ -31,15 +34,31 @@ const ChatNameList = () => {
     fetchFriends()
   }, [])
 
+  const handleSelect = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const id = e.currentTarget.id
+    setSelect(id)
+  }
+
   return (
-    <div className="h-full overflow-scroll">
+    <div className="h-full overflow-scroll" onClick={() => {}}>
       {friends?.map(
         (friend: any): JSX.Element => (
-          <ChatName
-            name={friend.displayName}
-            color={friend.color}
-            photoURL={friend.photoURL}
-          />
+          <div
+            key={friend?.displayName}
+            id={friend?.email}
+            onClick={(e) => {
+              handleSelect(e)
+            }}
+          >
+            <ChatName
+              name={friend?.displayName}
+              color={friend?.color}
+              photoURL={friend?.photoURL}
+              select={select}
+              email={friend?.email}
+            />
+          </div>
         )
       )}
     </div>

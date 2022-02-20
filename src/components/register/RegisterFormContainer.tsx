@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ButtonRegister } from '../../utils/form/button'
 
@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
+import { route } from 'next/dist/server/router'
 
 interface IFormInputs {
   email: string
@@ -33,43 +34,27 @@ export const RegisterFormContainer = () => {
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     const auth = getAuth()
-    const user = auth.currentUser
-    await createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(async (res) => {
-        if (user) {
-          await updateProfile(user, {
-            displayName: data.nickName,
-          })
-          router.push('/')
-        }
-      })
-      .catch((err) => {
-        const errorMessage = err.message
-        alert(`${errorMessage}`)
-      })
 
-    try {
-      if (user) {
+    await createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(async (userCreditional) => {
+        const user = userCreditional.user
         await updateProfile(user, {
           displayName: data.nickName,
         })
         router.push('/')
-      }
-    } catch (error: any) {}
-
-    // const auth = getAuth()
-
-    // signInWithEmailAndPassword(auth, data.email, data.password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user
-    //     console.log(user)
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code
-    //     const errorMessage = error.message
-    //   })
+      })
+      .catch((err: { message: any }) => {
+        const errorMessage = err.message
+        alert(`${errorMessage}`)
+      })
   }
+  useEffect(() => {
+    const auth = getAuth()
+    const user = auth.currentUser
+    if (user) {
+      router.push('/')
+    }
+  }, [])
 
   return (
     <form

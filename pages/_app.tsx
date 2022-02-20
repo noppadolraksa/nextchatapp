@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes'
 
 import { AuthProvider } from '../src/context/AuthProvider'
 import Loading from '../src/utils/Loading'
+import { ChakraProvider } from '@chakra-ui/react'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   // return <Loading type="spin" color="#6366f1" />

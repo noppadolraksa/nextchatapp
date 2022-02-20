@@ -36,18 +36,18 @@ export const AuthProvider = (props: {
         setCurrentUser(null)
         setLoading(false)
         router.push('/login')
-      } else {
+      } else if (user) {
         // const token = await user?.getIdToken()
 
         const userData: AuthContextInterface = {
-          displayName: user.displayName,
-          email: user.email,
+          displayName: user?.displayName,
+          email: user?.email,
           lastSeen: serverTimestamp(),
-          photoURL: user.photoURL,
+          photoURL: user?.photoURL,
           color: 'bubble-gum',
-          uid: user.uid,
+          uid: user?.uid,
         }
-        await setDoc(doc(db, 'users', user.uid), userData)
+        await setDoc(doc(db, 'users', user?.uid), userData)
         setCurrentUser(user)
         setLoading(false)
         console.log(currentUser)
@@ -58,13 +58,13 @@ export const AuthProvider = (props: {
 
   if (loading) {
     return <Loading type="spin" color="#6366f1" />
+  } else {
+    return (
+      <AuthContext.Provider value={currentUser}>
+        {props.children}
+      </AuthContext.Provider>
+    )
   }
-
-  return (
-    <AuthContext.Provider value={currentUser}>
-      {props.children}
-    </AuthContext.Provider>
-  )
 }
 // export const useAuth = () => useContext(AuthContext)
 export const useAuth = () => {
