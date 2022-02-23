@@ -4,7 +4,9 @@ import { Input1 } from '../../../utils/form/input'
 export const Password = ({ control }: { control: Control }) => {
   return (
     <Controller
-      render={({ field }) => <Input1 {...field} type="password" />}
+      render={({ field }) => (
+        <Input1 {...field} type="password" innerRef={field.ref} />
+      )}
       name="password"
       control={control}
       rules={{

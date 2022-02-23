@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfilePicture from '../../../utils/ProfilePicture'
+import { ProfilePicture } from '../../../utils/ProfilePicture'
 import MessageText from './MessageText'
 
 const MessageBox = () => {
@@ -8,7 +8,7 @@ const MessageBox = () => {
       <div className="mx-4 flex gap-2">
         <ProfilePicture
           photoURL={null}
-          name="noppadol raksasiripong"
+          displayName="noppadol raksasiripong"
           color="bubble-gum"
         />
         <div className="flex w-full flex-col items-start">

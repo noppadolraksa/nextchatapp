@@ -7,7 +7,7 @@ const MessageMyText = () => {
       <div className="mx-4 flex gap-2">
         <ProfilePicture
           photoURL={null}
-          name="noppadol raksasiripong"
+          displayName="noppadol raksasiripong"
           color="midnight"
         />
         <div className="flex flex-col items-start">

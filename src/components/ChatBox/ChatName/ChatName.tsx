@@ -1,20 +1,29 @@
-import ProfilePicture from '../../../utils/ProfilePicture'
+import {
+  ProfilePicture,
+  ProfilePictureWithName,
+} from '../../../utils/ProfilePicture'
 
 type ChatNameValue = {
-  name: string
+  displayName: string
   color: string
   photoURL: string
-  select: string
-  email: string
+  select: any
+  uid: string
 }
 
-const ChatName = ({ name, color, photoURL, select, email }: ChatNameValue) => {
+const ChatName = ({
+  displayName,
+  color,
+  photoURL,
+  select,
+  uid,
+}: ChatNameValue) => {
   return (
     <div
-      className={`mx-2 my-0 flex cursor-pointer flex-col justify-center rounded-xl p-2 transition-all duration-300   ease-in-out hover:bg-slate-400  hover:dark:bg-indigo-500
-      ${select === email ? 'bg-slate-300 dark:bg-slate-600 ' : 'bg-inherit'}
+      className={`mx-2 my-0 flex cursor-pointer flex-col justify-center rounded-xl p-2 transition-all duration-300   ease-in-out hover:bg-slate-300  hover:dark:bg-indigo-500
+      ${select === uid ? 'bg-gray-300 dark:bg-slate-600 ' : 'bg-inherit'}
       `}
-      id={email}
+      id={uid}
       // style={
       //   select === email
       //     ? { backgroundColor: '#a5b4fc' }
@@ -23,13 +32,11 @@ const ChatName = ({ name, color, photoURL, select, email }: ChatNameValue) => {
     >
       {/* ${select && 'bg-indigo-300'} */}
       <div className="mr-2 mb-2 mt-0 flex items-center justify-start ">
-        <p className=" m-0 flex w-full  items-center gap-1 truncate   text-gray-900 dark:text-gray-200">
-          <ProfilePicture photoURL={photoURL} name={name} color={color} />
-
-          <div className="min-w-0 truncate font-medium hover:text-clip">
-            {name}
-          </div>
-        </p>
+        <ProfilePictureWithName
+          photoURL={photoURL}
+          displayName={displayName}
+          color={color}
+        />
       </div>
       <div className="mb-0 flex items-center justify-between ">
         <p className="mb-0 h-5 w-5/6 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-gray-700 dark:text-gray-400">

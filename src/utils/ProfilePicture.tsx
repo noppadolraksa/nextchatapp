@@ -4,11 +4,15 @@ import { colorPalette } from './color'
 
 type ProfilePictureValue = {
   photoURL: string | null
-  name: string
+  displayName: string
   color: string
 }
 
-const ProfilePicture = ({ photoURL, name, color }: ProfilePictureValue) => {
+export const ProfilePicture = ({
+  photoURL,
+  displayName,
+  color,
+}: ProfilePictureValue) => {
   return (
     <>
       <p
@@ -16,7 +20,7 @@ const ProfilePicture = ({ photoURL, name, color }: ProfilePictureValue) => {
         style={{ backgroundColor: colorPalette[color] }}
       >
         {photoURL === null ? (
-          name?.slice(0, 2).toUpperCase()
+          displayName?.slice(0, 2).toUpperCase()
         ) : (
           <img alt="pic" className="rounded-full" src={photoURL} />
         )}
@@ -25,4 +29,22 @@ const ProfilePicture = ({ photoURL, name, color }: ProfilePictureValue) => {
   )
 }
 
-export default ProfilePicture
+export const ProfilePictureWithName = ({
+  photoURL,
+  color,
+  displayName,
+}: ProfilePictureValue) => {
+  return (
+    <div className=" m-1 flex w-full  items-center gap-1 truncate   ">
+      <ProfilePicture
+        photoURL={photoURL}
+        displayName={displayName}
+        color={color}
+      />
+
+      <p className="my-auto min-w-0 truncate font-medium text-gray-900 hover:text-clip dark:text-gray-200">
+        {displayName}
+      </p>
+    </div>
+  )
+}

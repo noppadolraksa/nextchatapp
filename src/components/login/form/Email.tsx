@@ -4,7 +4,9 @@ import { Input1 } from '../../../utils/form/input'
 export const Email = ({ control }: { control: Control }): JSX.Element => {
   return (
     <Controller
-      render={({ field }) => <Input1 {...field} type="text" />}
+      render={({ field }) => (
+        <Input1 {...field} type="text" innerRef={field.ref} />
+      )}
       name="email"
       control={control}
       rules={{

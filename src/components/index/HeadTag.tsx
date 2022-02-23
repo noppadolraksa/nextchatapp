@@ -1,8 +1,10 @@
 import Head from 'next/head'
 
 export function HeadTags() {
-  const title = 'Demo: Next.js ChatApp and authentication with redis, socket.io'
-  const desc = 'try to create ChatApp and authentication with nextjs'
+  const title =
+    'Demo:serverless next.js ChatApp and authentication with firebase'
+  const desc =
+    'try to create ChatApp and authentication with nextjs with serverless'
 
   return (
     <Head>

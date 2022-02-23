@@ -1,4 +1,10 @@
-import { collection, getDoc, getDocs, query, where } from 'firebase/firestore'
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import { db } from '../../../../config/firebase'
 import {
@@ -6,32 +12,44 @@ import {
   AuthProvider,
   AuthContextInterface,
   AuthContext,
-} from '../../../context/AuthProvider'
+  AuthContextDefaultValues,
+} from '../../../context/AuthContext'
+import { useChat } from '../../../context/ChatContext'
+
+import { LoadingChatName } from '../../../utils/Loading'
 import ChatName from './ChatName'
 
 const ChatNameList = () => {
-  const [friends, setFriends] = useState<AuthContextInterface[] | null>(null)
+  const [friends, setFriends] = useState<AuthContextInterface[]>([])
+  // const { select, setSelect } = useChat()
   const [select, setSelect] = useState<string>('')
-  // const [select, setSelect] = useState<boolean>(false)
 
-  const user = useAuth()
+  const currentUser = useAuth()
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchFriends = async () => {
-      if (user) {
+      setLoading(true)
+      if (currentUser !== AuthContextDefaultValues) {
         const usersRef = collection(db, 'users')
-        const q = query(usersRef, where('email', '!=', user?.email))
+        const q = query(usersRef, where('email', '!=', currentUser.email))
+        const arrayOfData: DocumentData[] = []
         const querySnapshot = await getDocs(q)
-        let data: AuthContextInterface | any = []
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          data.push(doc.data())
-          // { ...doc.data(), doc.id }
+          arrayOfData.push(doc.data())
+          console.log(doc.data())
         })
-        setFriends(data)
+
+        return arrayOfData
+      } else {
+        return console.log('no user')
       }
     }
-    fetchFriends()
+    fetchFriends().then((res) => {
+      // setFriends(res)
+      setLoading(false)
+      console.log(friends)
+    })
   }, [])
 
   const handleSelect = (e: React.MouseEvent) => {
@@ -41,26 +59,27 @@ const ChatNameList = () => {
   }
 
   return (
-    <div className="h-full overflow-scroll" onClick={() => {}}>
-      {friends?.map(
-        (friend: any): JSX.Element => (
+    <div className="relative">
+      <LoadingChatName loading={loading} />
+      <div className="h-full overflow-scroll" onClick={() => {}}>
+        {friends?.map((friend: AuthContextInterface) => (
           <div
-            key={friend?.displayName}
-            id={friend?.email}
+            key={friend.uid}
+            id={friend.uid}
             onClick={(e) => {
               handleSelect(e)
             }}
           >
             <ChatName
-              name={friend?.displayName}
-              color={friend?.color}
-              photoURL={friend?.photoURL}
+              displayName={friend.displayName}
+              color={friend.color}
+              photoURL={friend.photoURL}
               select={select}
-              email={friend?.email}
+              uid={friend.uid}
             />
           </div>
-        )
-      )}
+        ))}
+      </div>
     </div>
   )
 }
