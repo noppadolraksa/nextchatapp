@@ -10,16 +10,20 @@ import react, {
 import { useRouter } from 'next/router'
 import { auth, db } from '../../config/firebase'
 
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { colorPalette, randomProperty } from '../utils/color'
-import { AuthContextDefaultValues, AuthContextInterface } from './AuthContext'
+import {
+  AuthContextDefaultValues,
+  AuthContextInterface,
+  useAuth,
+} from './AuthContext'
+import { createChat } from '../firebaseApi/ChatApi'
 
 export type ChatContextInterface = {
   select: string
   //Dispatch<SetStateAction<string>>    <= string is the type of select
 
   setSelect: Dispatch<SetStateAction<string>>
-  chat: AuthContextInterface
+  chat: any
   setChat: Dispatch<SetStateAction<AuthContextInterface>>
 }
 
@@ -40,6 +44,7 @@ export const ChatProvider: FC = ({ children }) => {
   const [chat, setChat] = useState<AuthContextInterface>(
     AuthContextDefaultValues
   )
+  const currentUser = useAuth()
 
   const router = useRouter()
 
@@ -47,7 +52,7 @@ export const ChatProvider: FC = ({ children }) => {
   //   setSelect(select)
   // }
 
-  // useEffect(() => {}, [])
+  useEffect(() => {}, [])
 
   return (
     <>

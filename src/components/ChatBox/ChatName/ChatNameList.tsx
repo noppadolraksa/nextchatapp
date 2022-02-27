@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   DocumentData,
   getDocs,
@@ -15,6 +16,7 @@ import {
   AuthContextDefaultValues,
 } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
+import { createChat } from '../../../firebaseApi/ChatApi'
 
 import { LoadingChatName } from '../../../utils/Loading'
 import ChatName from './ChatName'
@@ -22,7 +24,9 @@ import ChatName from './ChatName'
 const ChatNameList = () => {
   const [friends, setFriends] = useState<AuthContextInterface[]>([])
   // const { select, setSelect } = useChat()
-  const [select, setSelect] = useState<string>('')
+  // const { select, setSelect } = useChat()
+
+  const { select, setSelect } = useChat()
 
   const currentUser = useAuth()
   const [loading, setLoading] = useState<boolean>(true)
@@ -37,7 +41,6 @@ const ChatNameList = () => {
         const querySnapshot = await getDocs(q)
         querySnapshot.forEach((doc) => {
           arrayOfData.push(doc.data())
-          console.log(doc.data())
         })
 
         return arrayOfData
@@ -45,30 +48,26 @@ const ChatNameList = () => {
         return console.log('no user')
       }
     }
-    fetchFriends().then((res) => {
-      // setFriends(res)
+    fetchFriends().then((res: any): void => {
+      setFriends(res)
       setLoading(false)
-      console.log(friends)
     })
-  }, [])
+  }, [currentUser])
 
-  const handleSelect = (e: React.MouseEvent) => {
-    e.preventDefault()
-    const id = e.currentTarget.id
-    setSelect(id)
+  const handleSelect = (uid: string) => {
+    setSelect(uid)
+    createChat(uid, currentUser).then(() => {})
   }
 
   return (
     <div className="relative">
       <LoadingChatName loading={loading} />
-      <div className="h-full overflow-scroll" onClick={() => {}}>
+      <div className="h-full overflow-scroll">
         {friends?.map((friend: AuthContextInterface) => (
           <div
             key={friend.uid}
             id={friend.uid}
-            onClick={(e) => {
-              handleSelect(e)
-            }}
+            onClick={() => handleSelect(friend.uid)}
           >
             <ChatName
               displayName={friend.displayName}
