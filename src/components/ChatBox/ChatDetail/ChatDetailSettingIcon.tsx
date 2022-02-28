@@ -16,7 +16,7 @@ const ChatDetailSettingIcon = ({ setting, setSetting }: Props) => {
 
   return (
     <div
-      className="my-2 flex cursor-pointer items-center justify-center text-slate-800  dark:text-white"
+      className="my-6 flex cursor-pointer items-center justify-center text-slate-800  dark:text-white"
       onClick={(e) => {
         handleOpenSetting(e)
       }}

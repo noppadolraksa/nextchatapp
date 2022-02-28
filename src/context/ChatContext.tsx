@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 import { colorPalette, randomProperty } from '../utils/color'
 import { useAuth } from './AuthContext'
-import { getChatByChatId } from '../firebaseApi/ChatApi'
+import { getChatByChatId } from '../utils/firebaseApi/ChatApi'
 
 export type ChatContextInterface = {
   chat: any

@@ -6,12 +6,12 @@ import {
   where,
 } from 'firebase/firestore'
 import React from 'react'
-import { db } from '../../config/firebase'
+import { db } from '../../../config/firebase'
 import {
   AuthContextDefaultValues,
   AuthContextInterface,
   useAuth,
-} from '../context/AuthContext'
+} from '../../context/AuthContext'
 
 // export const getFriendData = async (users: AuthContextInterface[]) => {
 //   const currentUser = useAuth()
@@ -29,9 +29,9 @@ export const fetchFriends = async (currentUser: AuthContextInterface) => {
     querySnapshot.forEach((doc) => {
       arrayOfData.push(doc.data())
     })
-    console.log(arrayOfData)
+
     return arrayOfData
   } else {
-    return console.log('no user')
+    return console.log('no friends')
   }
 }

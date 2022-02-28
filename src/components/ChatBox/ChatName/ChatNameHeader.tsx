@@ -30,7 +30,6 @@ const ChatNameHeader = (
           <ProfilePicture
             photoURL={currentUser?.photoURL}
             displayName={currentUser?.displayName}
-            color={currentUser?.color}
           />
         </div>
         <h3 className="my-auto flex  text-xl font-bold text-gray-600 dark:text-white">

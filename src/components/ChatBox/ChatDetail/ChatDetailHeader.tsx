@@ -1,7 +1,5 @@
-import { SettingOutlined } from '@ant-design/icons'
 import { useTheme } from 'next-themes'
 import React from 'react'
-import ChatDetailSettingIcon from './ChatDetailSettingIcon'
 
 type Props = {
   chatName: string

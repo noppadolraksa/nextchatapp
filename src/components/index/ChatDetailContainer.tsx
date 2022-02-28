@@ -11,8 +11,8 @@ export const ChatDetailContainer = () => {
 
   return (
     <section className="relative w-1/4">
-      <div className="absolute h-5/6 w-full">
-        <ChatDetailHeader chatName="asdasdsdasdasdasds" />
+      <div className="absolute  h-5/6 w-full ">
+        {/* <ChatDetailHeader chatName="" /> */}
         <ChatDetailSettingIcon setting={setting} setSetting={setSetting} />
         {!setting ? (
           <>

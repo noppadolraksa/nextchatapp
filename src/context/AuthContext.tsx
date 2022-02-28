@@ -85,7 +85,6 @@ export const AuthProvider: FC = ({ children }) => {
             }
             await setDoc(doc(db, 'users', user.uid), userData)
             setCurrentUser(userData)
-            console.log('have user')
           } else {
             const userData: AuthContextInterface = {
               displayName: user.displayName!,

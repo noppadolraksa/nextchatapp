@@ -17,8 +17,8 @@ import {
 } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
 import { useSelect } from '../../../context/SelectContext'
-import { createChat, getChatByChatId } from '../../../firebaseApi/ChatApi'
-import { fetchFriends } from '../../../firebaseApi/FriendApi'
+import { createChat, getChatByChatId } from '../../../utils/firebaseApi/ChatApi'
+import { fetchFriends } from '../../../utils/firebaseApi/FriendApi'
 
 import { LoadingChatName } from '../../../utils/Loading'
 import ChatName from './ChatName'
@@ -72,7 +72,7 @@ const ChatNameList = () => {
               photoURL={friend.photoURL}
               select={selectId}
               uid={friend.uid}
-              lastMessage="helloooo"
+              lastMessage=""
               lastMessageTime={friend.lastSeen}
             />
           </div>

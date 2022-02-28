@@ -11,7 +11,6 @@ const ChatDetailMemberList = () => {
           <ProfilePictureWithName
             photoURL={null}
             displayName={member.name}
-            color={member.color}
             key={index}
           />
           // <div key={index} className="flex items-center justify-start gap-1">

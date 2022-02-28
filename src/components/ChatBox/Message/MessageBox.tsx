@@ -1,39 +1,67 @@
-import React from 'react'
+import {
+  collection,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
+import { db } from '../../../../config/firebase'
+import { AuthContextDefaultValues } from '../../../context/AuthContext'
+import { useChat } from '../../../context/ChatContext'
+import { useSelect } from '../../../context/SelectContext'
+import { fetchMessage } from '../../../utils/firebaseApi/ChatApi'
+import { TextHeader, TextSm } from '../../../utils/form/text'
+import { Loading, LoadingChatName } from '../../../utils/Loading'
 import { ProfilePicture } from '../../../utils/ProfilePicture'
+
 import MessageText from './MessageText'
 
 const MessageBox = () => {
+  const { select } = useSelect()
+  const { chatId } = useChat()
+  const [messages, setMessages] = useState<DocumentData[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    setLoading(true)
+    if (chatId !== '') {
+      fetchMessage(chatId, setMessages)
+
+      setLoading(false)
+    }
+  }, [chatId])
+
   return (
-    <div className="flex h-full flex-col justify-start overflow-scroll">
-      <div className="mx-4 flex gap-2">
-        <ProfilePicture
-          photoURL={null}
-          displayName="noppadol raksasiripong"
-          color="bubble-gum"
-        />
-        <div className="flex w-full flex-col items-start">
-          <MessageText
-            text="Lorem assadas asad ad s wdad wd"
-            whoSaid="other"
-            read={true}
-          />
-          <MessageText
-            text="Lorem assadas asad ad s wdad wd"
-            whoSaid="me"
-            read={true}
-          />
-          <MessageText
-            text="Lorem assadas asad ad s wdad wd"
-            whoSaid="me"
-            read={true}
-          />
-          <MessageText
+    <div className="relative flex h-full flex-col justify-start overflow-scroll">
+      {select !== AuthContextDefaultValues ? (
+        <>
+          <LoadingChatName loading={loading} />
+
+          {messages.map((message: DocumentData, index) => (
+            <div key={index}>
+              <MessageText
+                text={message?.message}
+                uid={message?.uid}
+                displayName={message?.displayName}
+                photoURL={message.photoURL}
+                timestamp={message?.timestamp}
+              />
+            </div>
+          ))}
+
+          {/* <MessageText
             text="Lorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wd"
-            whoSaid="me"
-            read={false}
-          />
+            uid=""
+            timestamp={0}
+            displayName=""
+          /> */}
+        </>
+      ) : (
+        <div className=" flex h-full w-full items-center justify-center ">
+          <TextSm>please select friends to chat...</TextSm>
         </div>
-      </div>
+      )}
     </div>
   )
 }
