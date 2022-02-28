@@ -1,7 +1,9 @@
 import {
   addDoc,
   collection,
+  doc,
   DocumentData,
+  getDoc,
   getDocs,
   query,
   where,
@@ -10,8 +12,9 @@ import { db } from '../../config/firebase'
 import { AuthContextInterface } from '../context/AuthContext'
 import { useChat } from '../context/ChatContext'
 
+//return chatId
 export const createChat = async (
-  id: string,
+  friendId: string,
   currentUser: AuthContextInterface
 ) => {
   const chatsRef = collection(db, 'chats')
@@ -26,10 +29,30 @@ export const createChat = async (
   }
 
   //if no chat
-  if (!chatAlreadyExist(id)) {
-    const docSnap = await addDoc(chatsRef, { users: [currentUser.uid, id] })
-    console.log(docSnap.id)
+  if (!chatAlreadyExist(friendId)) {
+    const docSnap = await addDoc(chatsRef, {
+      users: [currentUser.uid, friendId],
+    })
+
+    return docSnap.id
   } else {
-    console.log(chatAlreadyExist(id)?.data())
+    console.log(
+      querySnapshot.docs.find((chat) =>
+        chat.data().users.find((user: string) => user === friendId)
+      )?.id
+    )
+
+    return chatAlreadyExist(friendId)?.id!
   }
 }
+
+export const getChatByChatId = async (chatId: string) => {
+  // const { setChat } = useChat()
+  const chatsRef = doc(db, 'chats', chatId)
+  const chatsSnap = await getDoc(chatsRef)
+  return chatsSnap.data()
+}
+
+// export const sendMessage = async (e) => {
+// e.preventDefault()
+// }

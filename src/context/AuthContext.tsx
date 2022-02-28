@@ -16,6 +16,8 @@ import {
   getDoc,
   doc,
   setDoc,
+  Timestamp,
+  FieldValue,
 } from 'firebase/firestore'
 
 export type FriendsProps = {
@@ -29,7 +31,7 @@ export type FriendsProps = {
 export type AuthContextInterface = {
   displayName: string
   email: string
-  lastSeen: {}
+  lastSeen: any
   photoURL: string
   color: string
   uid: string
@@ -39,7 +41,7 @@ export type AuthContextInterface = {
 export const AuthContextDefaultValues: AuthContextInterface = {
   displayName: '',
   email: '',
-  lastSeen: {},
+  lastSeen: null,
   photoURL: '',
   color: '',
   uid: '',
@@ -81,6 +83,7 @@ export const AuthProvider: FC = ({ children }) => {
               uid: oldUser.uid!,
               friendsId: null,
             }
+            await setDoc(doc(db, 'users', user.uid), userData)
             setCurrentUser(userData)
             console.log('have user')
           } else {

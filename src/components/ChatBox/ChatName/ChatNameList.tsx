@@ -16,52 +16,49 @@ import {
   AuthContextDefaultValues,
 } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
-import { createChat } from '../../../firebaseApi/ChatApi'
+import { useSelect } from '../../../context/SelectContext'
+import { createChat, getChatByChatId } from '../../../firebaseApi/ChatApi'
+import { fetchFriends } from '../../../firebaseApi/FriendApi'
 
 import { LoadingChatName } from '../../../utils/Loading'
 import ChatName from './ChatName'
 
+// type ChatNameListType = {
+//   switchToFriends: boolean
+// }
+
 const ChatNameList = () => {
   const [friends, setFriends] = useState<AuthContextInterface[]>([])
-  // const { select, setSelect } = useChat()
-  // const { select, setSelect } = useChat()
-
-  const { select, setSelect } = useChat()
-
+  const { setChatId } = useChat()
+  const [selectId, setSelectId] = useState<string>('')
+  const { select, setSelect } = useSelect()
+  const { setChat } = useChat()
   const currentUser = useAuth()
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const fetchFriends = async () => {
-      setLoading(true)
-      if (currentUser !== AuthContextDefaultValues) {
-        const usersRef = collection(db, 'users')
-        const q = query(usersRef, where('email', '!=', currentUser.email))
-        const arrayOfData: DocumentData[] = []
-        const querySnapshot = await getDocs(q)
-        querySnapshot.forEach((doc) => {
-          arrayOfData.push(doc.data())
-        })
-
-        return arrayOfData
-      } else {
-        return console.log('no user')
-      }
-    }
-    fetchFriends().then((res: any): void => {
+    setLoading(true)
+    fetchFriends(currentUser).then((res: any): void => {
       setFriends(res)
       setLoading(false)
     })
   }, [currentUser])
 
   const handleSelect = (uid: string) => {
-    setSelect(uid)
-    createChat(uid, currentUser).then(() => {})
+    setSelectId(uid)
+    const setSelectByUid = friends.find((friend) => friend.uid === uid)!
+    setSelect(setSelectByUid)
+
+    createChat(uid, currentUser).then((chatId) => {
+      setChatId(chatId)
+      setChat(getChatByChatId(chatId))
+    })
   }
 
   return (
     <div className="relative">
       <LoadingChatName loading={loading} />
+
       <div className="h-full overflow-scroll">
         {friends?.map((friend: AuthContextInterface) => (
           <div
@@ -73,8 +70,10 @@ const ChatNameList = () => {
               displayName={friend.displayName}
               color={friend.color}
               photoURL={friend.photoURL}
-              select={select}
+              select={selectId}
               uid={friend.uid}
+              lastMessage="helloooo"
+              lastMessageTime={friend.lastSeen}
             />
           </div>
         ))}

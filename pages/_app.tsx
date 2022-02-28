@@ -10,6 +10,7 @@ import { ChatProvider } from '../src/context/ChatContext'
 // import { LoadingProvider } from '../src/context/LoadingContext'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { SelectProvider } from '../src/context/SelectContext'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter()
@@ -31,13 +32,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       {/* <LoadingProvider> */}
       <AuthProvider>
         <ChatProvider>
-          <ThemeProvider attribute="class">
-            {loading ? (
-              <Loading loading={loading} />
-            ) : (
-              <Component {...pageProps} />
-            )}
-          </ThemeProvider>
+          <SelectProvider>
+            <ThemeProvider attribute="class">
+              {loading ? (
+                <Loading loading={loading} />
+              ) : (
+                <Component {...pageProps} />
+              )}
+            </ThemeProvider>
+          </SelectProvider>
         </ChatProvider>
       </AuthProvider>
       {/* </LoadingProvider> */}

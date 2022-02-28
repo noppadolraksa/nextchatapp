@@ -1,3 +1,4 @@
+import moment from 'antd/node_modules/moment'
 import {
   ProfilePicture,
   ProfilePictureWithName,
@@ -9,6 +10,8 @@ type ChatNameValue = {
   photoURL: string
   select: any
   uid: string
+  lastMessage: string
+  lastMessageTime: any
 }
 
 const ChatName = ({
@@ -17,6 +20,8 @@ const ChatName = ({
   photoURL,
   select,
   uid,
+  lastMessage,
+  lastMessageTime,
 }: ChatNameValue) => {
   return (
     <div
@@ -40,14 +45,11 @@ const ChatName = ({
       </div>
       <div className="mb-0 flex items-center justify-between ">
         <p className="mb-0 h-5 w-5/6 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-gray-700 dark:text-gray-400">
-          Lorem ipsum dolor sit ametaasaa consectetur adipisicing elit. Suscipit
-          aspernatur quibusdam cum commodi quod aliquam, ipsam cupiditate
-          beatae, iure aperiam ea labore, unde veritatis ad ullam omnis totam
-          hic nobis.
+          {lastMessage}
         </p>
         {/* date<1day ? 11:30 : 11Feb */}
-        <p className="mb-0  h-5 text-sm text-gray-700 dark:text-gray-400">
-          11Feb
+        <p className="mb-0  h-5 whitespace-nowrap text-xs text-gray-700 dark:text-gray-400">
+          {moment(lastMessageTime?.seconds * 1000).format('LT')}
         </p>
       </div>
     </div>

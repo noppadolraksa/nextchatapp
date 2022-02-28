@@ -8,30 +8,23 @@ import react, {
   FC,
 } from 'react'
 import { useRouter } from 'next/router'
-import { auth, db } from '../../config/firebase'
 
 import { colorPalette, randomProperty } from '../utils/color'
-import {
-  AuthContextDefaultValues,
-  AuthContextInterface,
-  useAuth,
-} from './AuthContext'
-import { createChat } from '../firebaseApi/ChatApi'
+import { useAuth } from './AuthContext'
+import { getChatByChatId } from '../firebaseApi/ChatApi'
 
 export type ChatContextInterface = {
-  select: string
-  //Dispatch<SetStateAction<string>>    <= string is the type of select
-
-  setSelect: Dispatch<SetStateAction<string>>
   chat: any
-  setChat: Dispatch<SetStateAction<AuthContextInterface>>
+  setChat: Dispatch<SetStateAction<any>>
+  chatId: string
+  setChatId: Dispatch<SetStateAction<string>>
 }
 
 const chatContextDefaultValues: ChatContextInterface = {
-  select: '',
-  setSelect: () => {},
-  chat: AuthContextDefaultValues,
+  chat: null,
   setChat: () => {},
+  chatId: '',
+  setChatId: () => {},
 }
 
 export const ChatContext = createContext<ChatContextInterface>(
@@ -40,23 +33,25 @@ export const ChatContext = createContext<ChatContextInterface>(
 //[ChatContextInterface, Dispatch<SetStateAction<ChatContextInterface>>] | null
 
 export const ChatProvider: FC = ({ children }) => {
-  const [select, setSelect] = useState<string>('')
-  const [chat, setChat] = useState<AuthContextInterface>(
-    AuthContextDefaultValues
-  )
+  const [chat, setChat] = useState(null)
+  const [chatId, setChatId] = useState<string>('')
   const currentUser = useAuth()
-
-  const router = useRouter()
 
   // const toggleSelect = (select: react.SetStateAction<string>) => {
   //   setSelect(select)
   // }
 
-  useEffect(() => {}, [])
+  // useEffect(() => {
+  //   getChatByChatId(chatId).then((data: any) => {
+  //     // setChat(data)
+  //     console.log(data)
+  //   })
+  //   // console.log(chat)
+  // }, [chatId])
 
   return (
     <>
-      <ChatContext.Provider value={{ select, chat, setSelect, setChat }}>
+      <ChatContext.Provider value={{ chat, setChat, chatId, setChatId }}>
         {children}
       </ChatContext.Provider>
     </>
