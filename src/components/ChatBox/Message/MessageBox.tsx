@@ -5,7 +5,7 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../../../../config/firebase'
 import { AuthContextDefaultValues } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
@@ -22,6 +22,14 @@ const MessageBox = () => {
   const { chatId } = useChat()
   const [messages, setMessages] = useState<DocumentData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const messagesEndRef = useRef<null | HTMLDivElement>(null)
+  console.log(1)
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   useEffect(() => {
     setLoading(true)
@@ -49,7 +57,7 @@ const MessageBox = () => {
               />
             </div>
           ))}
-
+          <div style={{ marginBottom: '1rem' }} ref={messagesEndRef}></div>
           {/* <MessageText
             text="Lorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wdLorem assadas asad ad s wdad wd"
             uid=""
@@ -67,3 +75,8 @@ const MessageBox = () => {
 }
 
 export default MessageBox
+
+// export  const getServerSideProps = async (context) = {
+//   const messagesRef = collection(db, 'chats', context.query.id, 'messages')
+//   const q = query(messagesRef, orderBy('timestamp', 'asc'))
+// }
