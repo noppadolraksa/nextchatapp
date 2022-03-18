@@ -1,8 +1,5 @@
-import moment from 'antd/node_modules/moment'
-import {
-  ProfilePicture,
-  ProfilePictureWithName,
-} from '../../../utils/ProfilePicture'
+import moment from 'moment'
+import { ProfilePictureWithName } from '../../../utils/ProfilePicture'
 
 type ChatNameValue = {
   displayName: string

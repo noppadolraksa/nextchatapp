@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ButtonRegister } from '../../utils/form/button'
 
@@ -10,7 +10,6 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { route } from 'next/dist/server/router'
 
 interface IFormInputs {
   email: string
@@ -41,7 +40,7 @@ export const RegisterFormContainer = () => {
         await updateProfile(user, {
           displayName: data.nickName,
         })
-        router.push('/')
+        router.push('/chat')
       })
       .catch((err: { message: any }) => {
         const errorMessage = err.message
@@ -52,7 +51,7 @@ export const RegisterFormContainer = () => {
     const auth = getAuth()
     const user = auth.currentUser
     if (user) {
-      router.push('/')
+      router.push('/chat')
     }
   }, [])
 

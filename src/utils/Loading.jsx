@@ -18,7 +18,7 @@ export const LoadingChatName = ({ loading }) => {
     <div
       className={`${
         loading ? 'visible' : 'invisible'
-      } z-49 absolute m-auto flex h-full w-full items-center justify-center bg-slate-900 bg-opacity-10 `}
+      } z-49 absolute m-auto flex h-full w-full items-center justify-center bg-slate-900 bg-opacity-0 `}
     >
       <ReactLoading
         type="spin"

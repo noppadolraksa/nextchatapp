@@ -14,18 +14,18 @@ import { SelectProvider } from '../src/context/SelectContext'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    const handleStart = (url: string) => {
-      url !== router.pathname ? setLoading(true) : setLoading(false)
-    }
-    const handleComplete = () => setLoading(false)
+  // useEffect(() => {
+  //   const handleStart = (url: string) => {
+  //     url !== router.pathname ? setLoading(true) : setLoading(false)
+  //   }
+  //   const handleComplete = () => setLoading(false)
 
-    router.events.on('routeChangeStart', handleStart)
-    router.events.on('routeChangeComplete', handleComplete)
-    router.events.on('routeChangeError', handleComplete)
-  }, [router])
+  //   router.events.on('routeChangeStart', handleStart)
+  //   router.events.on('routeChangeComplete', handleComplete)
+  //   router.events.on('routeChangeError', handleComplete)
+  // }, [router])
 
   return (
     <>

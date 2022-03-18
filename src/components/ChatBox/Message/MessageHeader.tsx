@@ -1,4 +1,4 @@
-import moment from 'antd/node_modules/moment'
+import moment from 'moment'
 import React from 'react'
 import { AuthContextDefaultValues } from '../../../context/AuthContext'
 import { useSelect } from '../../../context/SelectContext'

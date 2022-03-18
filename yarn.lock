@@ -893,6 +893,14 @@
     "@firebase/util" "1.4.3"
     tslib "^2.1.0"
 
+"@firebase/component@0.5.11":
+  version "0.5.11"
+  resolved "https://registry.yarnpkg.com/@firebase/component/-/component-0.5.11.tgz#af00aacf3a8348d159b1fd9a91945e1b15b03aaf"
+  integrity sha512-amtUrJxfJhJdjR3JzXqkHIoghJJ34o8OiSDj3gq96uKL4BRkSpmPaxi0+1r8DcDQ6bQxh3kDSoge8bRCDQCvsw==
+  dependencies:
+    "@firebase/util" "1.5.0"
+    tslib "^2.1.0"
+
 "@firebase/database-compat@0.1.5", "@firebase/database-compat@^0.1.1":
   version "0.1.5"
   resolved "https://registry.npmjs.org/@firebase/database-compat/-/database-compat-0.1.5.tgz"
@@ -1119,10 +1127,27 @@
     node-fetch "2.6.7"
     tslib "^2.1.0"
 
+"@firebase/storage@^0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@firebase/storage/-/storage-0.9.3.tgz#728fa6b6f32ac945935e6345e48c55d0a5352ed9"
+  integrity sha512-bi1sxMGduTl/cidtIqVyPyIAHEjMrQ5cMry2s4LfJMwaztUdSjgeSZRKLo5Nqy5/CC5fPhNIU3ueLhDm9z7dsA==
+  dependencies:
+    "@firebase/component" "0.5.11"
+    "@firebase/util" "1.5.0"
+    node-fetch "2.6.7"
+    tslib "^2.1.0"
+
 "@firebase/util@1.4.3":
   version "1.4.3"
   resolved "https://registry.npmjs.org/@firebase/util/-/util-1.4.3.tgz"
   integrity sha512-gQJl6r0a+MElLQEyU8Dx0kkC2coPj67f/zKZrGR7z7WpLgVanhaCUqEsptwpwoxi9RMFIaebleG+C9xxoARq+Q==
+  dependencies:
+    tslib "^2.1.0"
+
+"@firebase/util@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-1.5.0.tgz#0b6f5eaef49e57896fe152973bbc64f8af172123"
+  integrity sha512-4w4OY3YJVHV/4UBZ8OcXb8BD8I83P5n2y+FW0dHhn9OLXdYDg8bvCTA08P0nszpZqBhwutKQ4OS7c530SGjeLg==
   dependencies:
     tslib "^2.1.0"
 
@@ -3024,14 +3049,9 @@ minimist@^1.1.1:
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-moment@^2.24.0, moment@^2.25.3:
+moment@^2.24.0, moment@^2.25.3, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
-  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
-
-moment@^2.29.1:
-  version "2.29.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
 ms@2.1.2:

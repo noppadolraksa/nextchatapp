@@ -1,46 +1,65 @@
-import React, { useState } from 'react'
-import { picture } from '../../../../data'
+import React, { useEffect, useState } from 'react'
 
 import ChatDetailTitle from './ChatDetailTitle'
-import { Modal, Button } from 'antd'
+import { Modal, Button, message } from 'antd'
 import ChatDetailPhotoModel from './ChatDetailPhotoModel'
+import { DocumentData } from 'firebase/firestore'
+import { getChatPicures } from '../../../utils/function'
 
-//add html attribute
-// declare module 'react' {
-//   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-//     url?: string
-//     src?: string
-//   }
-// }
+type ChatDetailPhotoType = {
+  messages: string
+  chatId: string
+  messagesProp: DocumentData[]
+  setMessagesProp: (val: DocumentData[]) => void
+}
 
-// declare module 'react' {
-//   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-//     url?: string
-//   }
-// }
-
-const ChatDetailPhoto = () => {
+const ChatDetailPhoto = ({
+  chatId,
+  messages,
+  messagesProp,
+  setMessagesProp,
+}: ChatDetailPhotoType) => {
   const [show, setShow] = useState<boolean>(false)
-
+  const [pictures, setPictures] = useState<DocumentData[]>()
+  const [loading, setLoading] = useState<boolean>(true)
   const handleZoomImage = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     const pic = e.currentTarget.id
     return <ChatDetailPhotoModel pic={pic} />
   }
+  useEffect(() => {
+    const messagesJSON = JSON.parse(messages)
 
+    if (chatId !== '') {
+      getChatPicures({ messages: messagesJSON, setPictures })
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    getChatPicures({ messages: messagesProp, setPictures })
+    setLoading(false)
+  }, [messagesProp])
+
+  // useEffect(() => {
+  //   const picturesDataChange = messagesProp.filter(
+  //     (messageProp: { messageType: string }) => messageProp.messageType === 'image'
+  //   )
+  // }, [messagesProp])
+  // console.log(pictures)
   return (
     <div className="flex h-2/4 flex-col overflow-scroll ">
       <ChatDetailTitle chatName="Photos" show={show} setShow={setShow} />
       {show && (
         <div className="m-2 flex cursor-pointer flex-wrap overflow-scroll ">
-          {picture.map((pic, index) => (
+          {pictures?.map((pic, index) => (
             <img
-              src={pic}
+              src={pic.message}
               alt="chat picture"
               key={index}
               className=" w-1/3 sm:w-1/4"
-              id={pic}
-              onClick={(e) => handleZoomImage(e)}
+              id={pic.id}
+              // onClick={(e) => handleZoomImage(e)}
             ></img>
           ))}
         </div>

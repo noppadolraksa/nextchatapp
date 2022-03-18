@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase/firestore'
 import { useState } from 'react'
 import ChatDetailHeader from '../ChatBox/ChatDetail/ChatDetailHeader'
 import ChatDetailMember from '../ChatBox/ChatDetail/ChatDetailMember'
@@ -5,7 +6,21 @@ import ChatDetailPhoto from '../ChatBox/ChatDetail/ChatDetailPhoto'
 import ChatDetailSettingIcon from '../ChatBox/ChatDetail/ChatDetailSettingIcon'
 import ChatDetailSetting from '../ChatBox/ChatDetail/ChatDetailSettingList'
 
-export const ChatDetailContainer = () => {
+type ChatDetailContainerType = {
+  chat: any
+  messages: string
+  chatId: string
+  messagesProp: DocumentData[]
+  setMessagesProp: (val: DocumentData[]) => void
+}
+
+export const ChatDetailContainer = ({
+  chat,
+  messages,
+  chatId,
+  messagesProp,
+  setMessagesProp,
+}: ChatDetailContainerType) => {
   const [setting, setSetting] = useState<boolean>(false)
   const [darkMode, setDarkMode] = useState<boolean>(false)
 
@@ -16,8 +31,13 @@ export const ChatDetailContainer = () => {
         <ChatDetailSettingIcon setting={setting} setSetting={setSetting} />
         {!setting ? (
           <>
-            <ChatDetailMember />
-            <ChatDetailPhoto />
+            <ChatDetailMember chat={chat} />
+            <ChatDetailPhoto
+              messages={messages}
+              chatId={chatId}
+              messagesProp={messagesProp}
+              setMessagesProp={setMessagesProp}
+            />
           </>
         ) : (
           <ChatDetailSetting darkMode={darkMode} setDarkMode={setDarkMode} />

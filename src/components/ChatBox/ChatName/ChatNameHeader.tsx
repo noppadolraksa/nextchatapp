@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import { useAuth } from '../../../context/AuthContext'
 import { ProfilePicture } from '../../../utils/ProfilePicture'
 
@@ -17,16 +17,7 @@ const ChatNameHeader = (
   return (
     <div className=" flex  w-full items-center justify-between p-4 transition-all duration-1000 ease-in-out ">
       <div className="flex items-center justify-center gap-2">
-        <div
-        // className={`${
-        //   switchToFriends
-        //     ? 'rounded-full shadow-md shadow-slate-900 dark:shadow-gray-500'
-        //     : ''
-        // } cursor-pointer`}
-        // onClick={() => {
-        //   setSwitchToFriends(!switchToFriends)
-        // }}
-        >
+        <div>
           <ProfilePicture
             photoURL={currentUser?.photoURL}
             displayName={currentUser?.displayName}

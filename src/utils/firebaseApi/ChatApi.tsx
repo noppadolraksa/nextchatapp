@@ -60,12 +60,19 @@ export const getChatByChatId = async (chatId: string) => {
 // export const sendMessage = async (e) => {
 // e.preventDefault()
 // }
-
-export const sendMessage = async (
-  currentUser: AuthContextInterface,
-  chatId: string,
+type SendMessageType = {
+  currentUser: AuthContextInterface
+  chatId: string
   message: string
-) => {
+  messageType: string
+}
+
+export const sendMessage = async ({
+  currentUser,
+  chatId,
+  message,
+  messageType,
+}: SendMessageType) => {
   if (message === '') {
   } else {
     //chage user active time
@@ -78,6 +85,7 @@ export const sendMessage = async (
       message: message,
       displayName: currentUser.displayName,
       photoURL: currentUser.photoURL,
+      messageType: messageType,
       uid: currentUser.uid,
     })
     //add latest message and corresponding time
@@ -101,6 +109,28 @@ export const fetchMessage = (
   const q = query(messagesRef, orderBy('timestamp', 'asc'))
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     setMessages(
+      querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        timestamp: doc.data().timestamp?.toDate().getTime(),
+      }))
+    )
+  })
+  return unsubscribe
+}
+
+export const fetchPicture = (
+  chatId: string,
+  setPictures: (val: any) => void
+) => {
+  const picturesRef = collection(db, 'chats', chatId, 'messages')
+  const q = query(
+    picturesRef,
+    where('messageType', '==', 'image'),
+    orderBy('timestamp', 'asc')
+  )
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    setPictures(
       querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,

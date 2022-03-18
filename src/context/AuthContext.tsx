@@ -101,7 +101,7 @@ export const AuthProvider: FC = ({ children }) => {
           }
         }
         getUserById()
-        router.push('/')
+        router.push('/chat')
       }
     })
   }, [])
@@ -111,7 +111,6 @@ export const AuthProvider: FC = ({ children }) => {
       <AuthContext.Provider value={currentUser}>
         {children}
       </AuthContext.Provider>
-      )
     </>
   )
 }

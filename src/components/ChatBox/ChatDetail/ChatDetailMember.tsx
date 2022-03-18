@@ -3,7 +3,11 @@ import ChatDetailTitle from './ChatDetailTitle'
 
 import ChatDetailMemberList from './ChatDetailMemberList'
 
-const ChatDetailMember = () => {
+type ChatdetailMemberType = {
+  chat: string[]
+}
+
+const ChatDetailMember = ({ chat }: ChatdetailMemberType) => {
   const [show, setShow] = useState<boolean>(false)
 
   return (

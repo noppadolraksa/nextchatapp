@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 export const Input1 = ({ children, innerRef, ...props }: any) => {
   return (

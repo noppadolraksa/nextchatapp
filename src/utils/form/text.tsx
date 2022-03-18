@@ -66,7 +66,7 @@ export const TextGoogleLogin = ({ ...props }: any) => {
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then(() => {
-        router.push('/')
+        router.push('/chat')
       })
       .catch((err) => {
         console.error(err)

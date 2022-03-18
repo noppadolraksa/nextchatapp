@@ -6,15 +6,10 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import React, { useContext, useEffect, useState } from 'react'
-import { db } from '../../../../config/firebase'
-import {
-  useAuth,
-  AuthProvider,
-  AuthContextInterface,
-  AuthContext,
-  AuthContextDefaultValues,
-} from '../../../context/AuthContext'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+
+import { useAuth, AuthContextInterface } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
 import { useSelect } from '../../../context/SelectContext'
 import { createChat, getChatByChatId } from '../../../utils/firebaseApi/ChatApi'
@@ -23,38 +18,38 @@ import { fetchFriends } from '../../../utils/firebaseApi/FriendApi'
 import { LoadingChatName } from '../../../utils/Loading'
 import ChatName from './ChatName'
 
-// type ChatNameListType = {
-//   switchToFriends: boolean
-// }
-
 const ChatNameList = () => {
   const [friends, setFriends] = useState<AuthContextInterface[]>([])
-  const { setChatId } = useChat()
+  const { setChatIdContext, setMessagesContext } = useChat()
   const [selectId, setSelectId] = useState<string>('')
   const { select, setSelect } = useSelect()
-  const { setChat } = useChat()
+
   const currentUser = useAuth()
   const [loading, setLoading] = useState<boolean>(true)
-
+  const router = useRouter()
   useEffect(() => {
-    setLoading(true)
     fetchFriends(currentUser).then((res: any): void => {
       setFriends(res)
       setLoading(false)
     })
   }, [currentUser])
 
-  const handleSelect = (uid: string) => {
+  const handleSelect = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault()
+    const uid = e.currentTarget.id
     setSelectId(uid)
     const setSelectByUid = friends.find((friend) => friend.uid === uid)!
     setSelect(setSelectByUid)
-
     createChat(uid, currentUser).then((chatId) => {
-      setChatId(chatId)
-      setChat(getChatByChatId(chatId))
+      setChatIdContext(chatId)
+      if (getChatByChatId(chatId) !== undefined) {
+        setMessagesContext(getChatByChatId(chatId))
+      }
+      router.push(`/chat/${chatId}`)
     })
   }
 
+  // useEffect(() => {}, [router.pathname])
   return (
     <div className="relative">
       <LoadingChatName loading={loading} />
@@ -64,7 +59,7 @@ const ChatNameList = () => {
           <div
             key={friend.uid}
             id={friend.uid}
-            onClick={() => handleSelect(friend.uid)}
+            onClick={(e) => handleSelect(e)}
           >
             <ChatName
               displayName={friend.displayName}
