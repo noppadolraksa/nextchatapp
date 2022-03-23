@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { colorPalette } from './color'
-
 type ProfilePictureValue = {
   photoURL: string | null
   displayName: string

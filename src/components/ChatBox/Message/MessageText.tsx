@@ -1,5 +1,4 @@
 import moment from 'moment'
-import { FieldValue } from 'firebase/firestore'
 import React from 'react'
 import { useAuth } from '../../../context/AuthContext'
 import { ProfilePicture } from '../../../utils/ProfilePicture'

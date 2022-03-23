@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ButtonRegister } from '../../utils/form/button'
-
 import { TextError, TextHeader, TextSmLight } from '../../utils/form/text'
 import { ConfirmPassword, Email, Nickname, Password } from './form'
 import {

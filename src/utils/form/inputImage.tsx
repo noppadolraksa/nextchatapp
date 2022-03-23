@@ -11,9 +11,7 @@ type InputImageType = {
 }
 
 export const InputImage = ({
-  imagePreviewUrl,
   setImagePreviewUrl,
-  file,
   setFile, // img,
 }: InputImageType) => {
   const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +44,6 @@ export const InputImage = ({
         accept="image/*"
         value={''} // to use delete button freely
       />
-
-      {/* {imagePreviewUrl ? (
-          <img alt="image preview" src={imagePreviewUrl} />
-        ) : (
-          <img alt="image preview" src={img} />
-        )} */}
     </section>
   )
 }

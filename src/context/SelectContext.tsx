@@ -1,20 +1,13 @@
-import react, {
+import {
   useState,
-  useEffect,
   createContext,
   useContext,
   Dispatch,
   SetStateAction,
   FC,
 } from 'react'
-import { useRouter } from 'next/router'
 
-import { colorPalette, randomProperty } from '../utils/color'
-import {
-  AuthContextDefaultValues,
-  AuthContextInterface,
-  useAuth,
-} from './AuthContext'
+import { AuthContextDefaultValues, AuthContextInterface } from './AuthContext'
 
 export type SelectContextInterface = {
   select: AuthContextInterface
@@ -29,16 +22,11 @@ const selectContextDefaultValues: SelectContextInterface = {
 export const SelectContext = createContext<SelectContextInterface>(
   selectContextDefaultValues
 )
-//[selectContextInterface, Dispatch<SetStateAction<selectContextInterface>>] | null
 
 export const SelectProvider: FC = ({ children }) => {
   const [select, setSelect] = useState<AuthContextInterface>(
     AuthContextDefaultValues
   )
-
-  // const toggleSelect = (select: react.SetStateAction<string>) => {
-  //   setSelect(select)
-  // }
 
   return (
     <>
@@ -48,10 +36,9 @@ export const SelectProvider: FC = ({ children }) => {
     </>
   )
 }
-// export const useAuth = () => useContext(AuthContext)
+
 export const useSelect = () => {
   const ctxValue = useContext(SelectContext)
 
   return ctxValue
 }
-// fetch context => const user = useAuth().currentUser

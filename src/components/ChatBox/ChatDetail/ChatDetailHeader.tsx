@@ -1,4 +1,3 @@
-import { useTheme } from 'next-themes'
 import React from 'react'
 
 type Props = {
@@ -6,8 +5,6 @@ type Props = {
 }
 
 const ChatDetailHeader = ({ chatName }: Props) => {
-  const { theme, setTheme } = useTheme()
-
   return (
     <div className=" relative flex h-12 w-full items-center justify-center pt-4">
       <h3 className="mb-px  text-xl font-bold text-gray-600 dark:text-white">

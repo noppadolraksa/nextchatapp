@@ -1,15 +1,10 @@
 import { DocumentData } from 'firebase/firestore'
-import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-
 import { AuthContextDefaultValues } from '../../../context/AuthContext'
 import { useChat } from '../../../context/ChatContext'
 import { useSelect } from '../../../context/SelectContext'
 import { fetchMessage } from '../../../utils/firebaseApi/ChatApi'
-
 import { TextSm } from '../../../utils/form/text'
-import { LoadingChatName } from '../../../utils/Loading'
-
 import MessageText from './MessageText'
 
 type MessageBoxType = {
@@ -28,8 +23,6 @@ const MessageBox = ({
   setMessagesProp,
 }: MessageBoxType) => {
   const { select } = useSelect()
-  const { setMessagesContext } = useChat()
-
   const [loading, setLoading] = useState<boolean>(true)
   const messagesEndRef = useRef<null | HTMLDivElement>(null)
 

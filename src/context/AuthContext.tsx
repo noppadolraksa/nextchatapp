@@ -1,24 +1,7 @@
-import react, {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  FC,
-} from 'react'
+import { useState, useEffect, createContext, useContext, FC } from 'react'
 import { useRouter } from 'next/router'
 import { auth, db } from '../../config/firebase'
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  serverTimestamp,
-  getDoc,
-  doc,
-  setDoc,
-  Timestamp,
-  FieldValue,
-} from 'firebase/firestore'
+import { serverTimestamp, getDoc, doc, setDoc } from 'firebase/firestore'
 
 export type FriendsProps = {
   displayName: ''
@@ -51,7 +34,6 @@ export const AuthContextDefaultValues: AuthContextInterface = {
 export const AuthContext = createContext<AuthContextInterface>(
   AuthContextDefaultValues
 )
-//[AuthContextInterface, Dispatch<SetStateAction<AuthContextInterface>>] | null
 
 export const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<AuthContextInterface>(
@@ -66,8 +48,6 @@ export const AuthProvider: FC = ({ children }) => {
         router.push('/login')
       }
       if (user !== null) {
-        // const token = await user?.getIdToken()
-
         const getUserById = async () => {
           const usersRef = doc(db, 'users', user.uid)
           const usersSnap = await getDoc(usersRef)
@@ -114,8 +94,7 @@ export const AuthProvider: FC = ({ children }) => {
     </>
   )
 }
-// export const useAuth = () => useContext(AuthContext)
+
 export const useAuth = () => {
   return useContext(AuthContext)
 }
-// fetch context => const user = useAuth().currentUser

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import ChatDetailTitle from './ChatDetailTitle'
-
 import ChatDetailMemberList from './ChatDetailMemberList'
 
 type ChatdetailMemberType = {

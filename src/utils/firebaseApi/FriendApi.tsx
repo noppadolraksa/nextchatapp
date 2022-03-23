@@ -5,20 +5,11 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import React from 'react'
 import { db } from '../../../config/firebase'
 import {
   AuthContextDefaultValues,
   AuthContextInterface,
-  useAuth,
 } from '../../context/AuthContext'
-
-// export const getFriendData = async (users: AuthContextInterface[]) => {
-//   const currentUser = useAuth()
-//   const friendsRef = collection(db, 'chats')
-//   const q = query(friendsRef, where('users', 'array-contains', currentUser.uid))
-//   const querySnapshot = await getDocs(q)
-// }
 
 export const fetchFriends = async (currentUser: AuthContextInterface) => {
   if (currentUser !== AuthContextDefaultValues) {

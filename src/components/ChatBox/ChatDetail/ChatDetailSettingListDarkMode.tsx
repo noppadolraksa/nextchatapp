@@ -9,6 +9,7 @@ type Props = {
 
 const ChatDetailSettingListDarkMode = ({ darkMode, setDarkMode }: Props) => {
   const { theme, setTheme } = useTheme()
+
   useEffect(() => {
     if (darkMode === true) {
       setTheme('dark')

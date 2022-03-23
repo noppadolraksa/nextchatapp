@@ -1,6 +1,5 @@
 import { DocumentData } from 'firebase/firestore'
 import { useState } from 'react'
-import ChatDetailHeader from '../ChatBox/ChatDetail/ChatDetailHeader'
 import ChatDetailMember from '../ChatBox/ChatDetail/ChatDetailMember'
 import ChatDetailPhoto from '../ChatBox/ChatDetail/ChatDetailPhoto'
 import ChatDetailSettingIcon from '../ChatBox/ChatDetail/ChatDetailSettingIcon'
@@ -29,7 +28,6 @@ export const ChatDetailContainer = ({
       <>
         <section className="relative w-1/4">
           <div className="absolute  h-5/6 w-full ">
-            {/* <ChatDetailHeader chatName="" /> */}
             <ChatDetailSettingIcon setting={setting} setSetting={setSetting} />
             {!setting ? (
               <></>
@@ -47,7 +45,6 @@ export const ChatDetailContainer = ({
   return (
     <section className="relative w-1/4">
       <div className="absolute  h-5/6 w-full ">
-        {/* <ChatDetailHeader chatName="" /> */}
         <ChatDetailSettingIcon setting={setting} setSetting={setSetting} />
         {!setting ? (
           <>

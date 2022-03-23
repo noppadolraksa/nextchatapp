@@ -2,18 +2,9 @@ import React from 'react'
 import { useAuth } from '../../../context/AuthContext'
 import { ProfilePicture } from '../../../utils/ProfilePicture'
 
-// type ChatNameType = {
-//   switchToFriends: boolean
-//   setSwitchToFriends: (val: boolean) => void
-// }
-
-const ChatNameHeader = (
-  {
-    // switchToFriends,
-    // setSwitchToFriends,
-  }
-) => {
+const ChatNameHeader = () => {
   const currentUser = useAuth()
+
   return (
     <div className=" flex  w-full items-center justify-between p-4 transition-all duration-1000 ease-in-out ">
       <div className="flex items-center justify-center gap-2">

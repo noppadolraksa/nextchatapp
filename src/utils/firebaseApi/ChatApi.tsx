@@ -2,7 +2,6 @@ import {
   addDoc,
   collection,
   doc,
-  DocumentData,
   getDoc,
   getDocs,
   onSnapshot,
@@ -14,7 +13,6 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../../config/firebase'
 import { AuthContextInterface } from '../../context/AuthContext'
-import { useChat } from '../../context/ChatContext'
 
 //return chatId
 export const createChat = async (
@@ -57,9 +55,6 @@ export const getChatByChatId = async (chatId: string) => {
   return chatsSnap.data()
 }
 
-// export const sendMessage = async (e) => {
-// e.preventDefault()
-// }
 type SendMessageType = {
   currentUser: AuthContextInterface
   chatId: string

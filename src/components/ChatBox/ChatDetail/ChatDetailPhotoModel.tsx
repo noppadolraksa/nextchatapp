@@ -13,6 +13,7 @@ const ChatDetailPhotoModel = ({ pic }: Props) => {
   const handleCancel = () => {
     setIsModalVisible(false)
   }
+
   return (
     <Modal
       title="Picture"

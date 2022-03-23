@@ -1,16 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-
-import { PaperClipOutlined, SendOutlined } from '@ant-design/icons'
-import { useTheme } from 'next-themes'
+import React, { useEffect, useState } from 'react'
+import { SendOutlined } from '@ant-design/icons'
 import { AuthContextDefaultValues, useAuth } from '../../../context/AuthContext'
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-} from 'firebase/firestore'
-import { app, db } from '../../../../config/firebase'
+import { app } from '../../../../config/firebase'
 import { useSelect } from '../../../context/SelectContext'
 import { useChat } from '../../../context/ChatContext'
 import { sendMessage } from '../../../utils/firebaseApi/ChatApi'
@@ -41,7 +32,6 @@ const MessageInput = () => {
     if (file) {
       const formData = new FormData()
       formData.append('image', file, file.name)
-
       const storage = getStorage(app)
       const fileName = new Date().getTime() + file?.name
       const storageRef = ref(storage, fileName)

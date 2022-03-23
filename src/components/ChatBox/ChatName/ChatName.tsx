@@ -13,7 +13,6 @@ type ChatNameValue = {
 
 const ChatName = ({
   displayName,
-  color,
   photoURL,
   select,
   uid,
@@ -26,13 +25,7 @@ const ChatName = ({
       ${select === uid ? 'bg-gray-300 dark:bg-slate-600 ' : 'bg-inherit'}
       `}
       id={uid}
-      // style={
-      //   select === email
-      //     ? { backgroundColor: '#a5b4fc' }
-      //     : { backgroundColor: 'inherit' }
-      // }
     >
-      {/* ${select && 'bg-indigo-300'} */}
       <div className="mr-2 mb-2 mt-0 flex items-center justify-start ">
         <ProfilePictureWithName photoURL={photoURL} displayName={displayName} />
       </div>
@@ -40,7 +33,7 @@ const ChatName = ({
         <p className="mb-0 h-5 w-5/6 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-gray-700 dark:text-gray-400">
           {lastMessage}
         </p>
-        {/* date<1day ? 11:30 : 11Feb */}
+
         <p className="mb-0  h-5 whitespace-nowrap text-xs text-gray-700 dark:text-gray-400">
           {moment(lastMessageTime?.seconds * 1000).format('LT')}
         </p>
