@@ -14,9 +14,9 @@ import { Password } from './form/Password'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 interface IFormInputs {
-  email: string
-  password: string
-  formState: { errors: string }
+  email?: string
+  password?: string
+  formState?: { errors: string }
 }
 
 interface IValue {
@@ -28,7 +28,7 @@ export const LoginFormContainer = () => {
   const {
     handleSubmit,
     control,
-    register,
+
     formState: { errors },
   } = useForm<IFormInputs>()
 
@@ -37,10 +37,10 @@ export const LoginFormContainer = () => {
     password: '',
   })
 
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+  const onSubmit = (data: IFormInputs) => {
     const auth = getAuth()
 
-    signInWithEmailAndPassword(auth, data.email, data.password)
+    signInWithEmailAndPassword(auth, data.email!, data.password!)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user

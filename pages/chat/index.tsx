@@ -4,7 +4,6 @@ import { FC, ReactNode, useState } from 'react'
 import MessageBox from '../../src/components/ChatBox/Message/MessageBox'
 import {
   ChatDetailContainer,
-  ChatMessageContainer,
   ChatNameContainer,
   HeadTags,
   Layout,

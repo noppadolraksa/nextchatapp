@@ -4,7 +4,7 @@ import { Input2 } from '../../../utils/form/input'
 
 interface IProps {
   control: Control
-  password: MutableRefObject<{}>
+  password: MutableRefObject<string | undefined>
 }
 
 export const ConfirmPassword = ({ control, password }: IProps): JSX.Element => {

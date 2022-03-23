@@ -12,11 +12,11 @@ import {
 import { useRouter } from 'next/router'
 
 interface IFormInputs {
-  email: string
-  password: string
-  confirmPassword: string
-  nickName: string
-  formState: { errors: string }
+  email?: string
+  password?: string
+  confirmPassword?: string
+  nickName?: string
+  formState?: { errors: string }
 }
 
 export const RegisterFormContainer = () => {
@@ -28,13 +28,13 @@ export const RegisterFormContainer = () => {
     formState: { errors },
   } = useForm<IFormInputs>()
 
-  const password = useRef({})
+  const password = useRef<string | undefined>(undefined)
   password.current = watch('password', '')
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     const auth = getAuth()
 
-    await createUserWithEmailAndPassword(auth, data.email, data.password)
+    await createUserWithEmailAndPassword(auth, data.email!, data.password!)
       .then(async (userCreditional) => {
         const user = userCreditional.user
         await updateProfile(user, {
