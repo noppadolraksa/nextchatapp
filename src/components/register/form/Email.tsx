@@ -1,10 +1,10 @@
 import { Controller, Control } from 'react-hook-form'
-import { Input1 } from '../../../utils/form/input'
+import { Input2 } from '../../../utils/form/input'
 
 export const Email = ({ control }: { control: Control }): JSX.Element => {
   return (
     <Controller
-      render={({ field }) => <Input1 {...field} type="text" />}
+      render={({ field }) => <Input2 {...field} type="text" />}
       name="email"
       control={control}
       rules={{
