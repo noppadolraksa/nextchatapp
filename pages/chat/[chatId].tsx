@@ -40,8 +40,14 @@ const ChatRoom = ({ chat, id, messages }: ChatRoomType) => {
   }, [router])
 
   return (
-    <Home>
-      <section className=" relative box-border flex w-2/4 flex-col justify-between border-x-2 border-gray-300 dark:border-gray-500">
+    <Home
+      chat={chat}
+      chatId={id}
+      messages={messages}
+      messagesProp={messagesProp}
+      setMessagesProp={setMessagesProp}
+    >
+      <section className=" relative box-border flex w-2/4 flex-col justify-between border-x-2 border-indigo-200 dark:border-gray-500">
         <LoadingChatName loading={loading} />
         <MessageHeader />
         <MessageBox
@@ -53,13 +59,6 @@ const ChatRoom = ({ chat, id, messages }: ChatRoomType) => {
         />
         <MessageInput />
       </section>
-      <ChatDetailContainer
-        chat={chat}
-        chatId={id}
-        messages={messages}
-        messagesProp={messagesProp}
-        setMessagesProp={setMessagesProp}
-      />
     </Home>
   )
 }

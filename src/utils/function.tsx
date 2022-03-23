@@ -6,7 +6,7 @@ type MessagesType = {
 }
 
 export const getChatPicures = ({ messages, setPictures }: MessagesType) => {
-  const picturesData = messages.filter(
+  const picturesData = messages?.filter(
     (message) => message.messageType === 'image'
   )
   setPictures(picturesData)
